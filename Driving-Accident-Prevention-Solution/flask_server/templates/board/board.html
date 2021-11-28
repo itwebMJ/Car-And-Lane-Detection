@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+ 
+{% block content %}
+  <div class="card col-md-8 offset-md-2" style="margin-top: 3em;position: absolute;top:100px;left:-100px">
+    <div class="card-body">
+      <h5 class="card-title">게시판</h5>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">번호</th>
+            <th scope="col">글제목</th>
+            <th scope="col">작성자</th>
+            <th scope="col">작성일</th>
+          </tr>
+        </thead>
+        <tbody id="tableContent">
+          {% for data  in bd %}
+            <tr class="even"><td>{{ data.num }}</td><td>{{ data.title }}</td><td>{{ data.writer }}</td><td>{{ data.w_date }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <a href="/board/insert" class="btn btn-primary pull-right">글 작성</a>
+    </div>
+  </div>
+{% endblock %}

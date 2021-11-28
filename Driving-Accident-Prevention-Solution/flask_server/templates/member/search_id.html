@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>아이디 찾기</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <style>
+    html, body {
+      background-image: url('../static/images/login.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 100%;
+      font-family: 'Numans', sans-serif;
+      
+    }
+   
+     
+    .input-form {
+      max-width: 500px;
+      margin-top: 200px;
+      padding: 20px;
+
+      background: #fff;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+    }
+  </style>
+</head>
+
+<body>
+    
+  <div class="container">
+    <div class="input-form-backgroud row">
+      <div class="input-form col-md-12 mx-auto">
+        <h4 class="mb-3">아이디 찾기</h4>
+        <form class="validation-form">
+          <div class="mb-3">
+            <label for="id">이름</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="이름" required > 
+          </div>
+
+
+          <div class="mb-3">
+            <label for="email">이메일</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>       
+          </div>
+          <span id="sp" style="position:relative;top:-10px; color:red;"></span>
+          <span id="show"></span>
+          <span id="btn"> 
+              <button class="btn btn-primary btn-lg btn-block" type="submit">아이디 찾기</button>
+          </span>
+        </form>
+      </div>
+    </div>
+  </div>
+    
+    
+  <script>
+    function check(id){
+        var span_tag = document.getElementById(id);
+        var tmp_name = document.getElementById("name").value
+        var tmp_email = document.getElementById("email").value
+        if(tmp_name != "" && tmp_email != "") {
+  
+            var ids = {{mem|tojson}};
+            for(i = 0; i < ids.length; ++i){
+                if(ids[i][0] == tmp_name && ids[i][1] == tmp_email){
+                    span_tag.innerHTML = "";
+                    return ids[i][2];
+                }       
+        }
+            span_tag.innerHTML = "일치하는 이름과, 이메일이 없습니다.";
+            return false;
+        }
+    }
+    
+    function back(){
+        location.href = "/";
+    }
+    
+    function show(find_id){
+        var span_tag = document.getElementById("show");
+        span_tag.innerHTML = "회원님의 아이디는 " + '"' + find_id + '"' + " 입니다.<br><br>";
+        span_tag = document.getElementById("btn");
+        span_tag.innerHTML = '<button class="btn btn-primary btn-lg btn-block" type="button" onclick="back()">로그인 하기</button>';
+    }
+      
+      
+    window.addEventListener('load', () => {
+      const forms = document.getElementsByClassName('validation-form');
+
+      Array.prototype.filter.call(forms, (form) => {
+        form.addEventListener('submit', function (event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          var find_id = check("sp");
+          if(!find_id){
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+          }
+          else{
+              show(find_id);
+              event.preventDefault();
+              event.stopPropagation();
+              return;
+          }
+              
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+          
+      
+  </script>    
+  
+</body>
+
+</html>

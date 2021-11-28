@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>문의하기</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="../../static/css/menubar.css">
+  <link rel="stylesheet" href="../../static/css/textarea.css">
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  <style>
+    .fill {
+        min-height: 100%;
+        height: 100%;
+        width: 100%
+    }
+  </style>
+</head>
+<body>
+    <div class="row fill">
+      <div class="col-md-3 fill">
+        <div class="userName" style="height:25%;width:55%">
+            <a href="/member/login"><img src="../static/images/indexLogo.png" width="100" height="100"></a>
+          <span class="userNameSpan show"><br><br>{{session.id}}님<br></span>
+          <i class="fa fa-power-off logout"></i>
+        </div>
+        <div class="userMenu" style="height:75%;width:55%;margin-left:0">
+          <ul>
+            <li><a href="" class="zoom"><i class="fa fa-bar-chart Icon"></i><span class="show"><br><br><br>&nbsp;&nbsp;&nbsp;주행 리포트</span></a></li>
+            <li><a href="" class="zoom"><i class="fa fa-cloud-download Icon"></i><span class="show">&nbsp;&nbsp;&nbsp;주행영상보기</span></a></li>
+            <li><a href="" class="zoom"><i class="fa fa-cog Icon"></i><span class="show">&nbsp;&nbsp;&nbsp;세팅</span></a></li>
+            <li><a href="/board" class="zoom"><i class="fa fa-comments Icon"></i><span class="show">&nbsp;&nbsp;&nbsp;문의 하기</span></a></li>
+            <li><a href="/member/my_info" class="zoom"><i class="fa fa-users Icon"></i><span class="show">&nbsp;&nbsp;&nbsp;내정보</span></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-9">
+          {% block content %}{% endblock %}
+      </div>
+
+    </div>
+    <div style="position: absolute;top:700px;left:50px;">
+       <img src="../static/images/playdata_icon.ico" width="25" height="25">
+    </div>
+    <div style="position: absolute;top:699px;left:78px;font-size:1.2em; color:white;">견인차</div>
+
+</body>
+
+
+</html>

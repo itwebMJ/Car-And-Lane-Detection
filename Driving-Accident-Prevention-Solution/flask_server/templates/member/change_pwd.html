@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>비밀번호 변경하기</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <style>
+    html, body {
+      background-image: url('../static/images/login.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 100%;
+      font-family: 'Numans', sans-serif;
+    }
+   
+     
+    .input-form {
+      max-width: 500px;
+      margin-top: 200px;
+      padding: 20px;
+
+      background: #fff;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+    }
+  </style>
+</head>
+
+<body>
+    
+  <div class="container">
+    <div class="input-form-backgroud row">
+      <div class="input-form col-md-12 mx-auto">
+        <h4 class="mb-3">비밀번호 변경하기</h4>
+        <form class="validation-form" action="/member/change_pwd" method="post">
+          <div class="mb-3">
+            <label for="pwd">새 비밀번호</label>
+            <input type="password" class="form-control" id="pwd" name="pwd" placeholder="새 비밀번호" onblur="pwd_check()" required > 
+          </div>
+          <span id="sp1" style="position:relative;top:-10px; color:red;"></span>
+
+          <div class="mb-3">
+            <label for="repwd">새 비밀번호 확인</label>
+            <input type="password" class="form-control" id="repwd" name="repwd" placeholder="새 비밀번호 확인" required>       
+          </div>
+          <span id="sp2" style="position:relative;top:-10px; color:red;"></span>
+          <button class="btn btn-primary btn-lg btn-block" type="submit">비밀번호 변경하기</button>
+        </form>
+      </div>
+    </div>
+  </div>
+    
+    
+  <script>
+    function pwd_check(){
+        var span_tag = document.getElementById("sp1");
+        if(document.getElementById("pwd").value.length < 4){
+                span_tag.innerHTML = "4자 이상의 영문, 숫자와 특수기호만 사용 가능합니다.";
+                return false;
+            }
+        span_tag.innerHTML = "";
+        return true;
+    }
+      
+    function check(){
+        var span_tag = document.getElementById("sp2");
+        var tmp_pwd = document.getElementById("pwd").value
+        var tmp_repwd = document.getElementById("repwd").value
+        if(tmp_pwd != tmp_repwd){
+            span_tag.innerHTML = "비밀번호가 일치하지 않습니다.";
+            return false;
+        }
+        span_tag.innerHTML = "";
+        return true; 
+    }
+      
+      
+    window.addEventListener('load', () => {
+      const forms = document.getElementsByClassName('validation-form');
+
+      Array.prototype.filter.call(forms, (form) => {
+        form.addEventListener('submit', function (event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          if(!check() || !pwd_check()){
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+          }
+              
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+          
+      
+  </script>    
+  
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+* {
+    box-sixing: border-box;
+}
+
+html, body {
+    background-image: url('../images/play.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    width: 100%;
+    font-size: 0;
+    font-family: 'Open Sans', sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.oneFifth {
+    display: inline-block;
+    width: 20%;
+    padding: 0;
+    margin: 0;
+}
+
+.fourFifth {
+    display: inline-block;
+    width: ;
+    padding: ;
+    vertical-align: middle;
+    margin: ;
+}   
+
+
+
+.userPanel {
+    background: #0F4B99;
+    display: inline-block;
+    width: 200px;
+    min-height: 753px;
+    padding: 0;
+    margin: 0;
+}
+
+.userLogo {
+    width: 100%;
+    background: #0F4B99;
+    text-align: center; 
+    margin: 0;
+    padding: 0;
+}
+    .userLogo img {
+        border-radius: 50%;
+    }
+
+.userName {
+    width: 100%;
+    background: #0F4B99;
+    padding: 0 0 10px;
+    text-align: center;
+    color: #fff;
+    margin: 0;
+}
+    .userName span {
+        width: 100%;
+        font-size: 17px;
+        padding: 2px 5px 20px 0;
+        line-height: 120%;
+        font-weight: 700;
+    }
+    .userName i {
+        font-size: 17px;
+        margin: 0 10px;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        margin: 7px 0 0;
+        transition: 0.5s;
+    }
+
+.userNameSpan {
+        display: inline-block;
+    }
+
+.logout:hover {
+    border: 2px solid #EDE540;
+    border-radius: 50%;
+    transform: scale(1.15);
+    color: #EDE540;
+    cursor: pointer;
+}
+
+.userMenu {
+    background: #0F4B99;
+    width: 100%;
+    margin: 0 auto;
+    color: #fff;
+    font-size: 17px;
+    padding: 20px 0;
+}
+    .userMenu ul {
+        width: 70%;
+        margin: 0 auto;
+        list-style: none;
+        padding: 0;
+    }
+    .userMenu li a {
+        display: block;
+        text-decoration: none;
+        color: #fff;
+        line-height: 150%;
+        color: #fff;
+        padding: 3px 0;
+    }
+
+.showI2 {
+    margin: 0;
+    text-align: center;
+}
+
+.Icon {
+    padding: 0 10px;
+    width: 10%;
+}
+
+.Icon2 {
+    padding: 0;
+    font-size: 20px !important;
+}
+
+.zoom {
+    transition: 0.5s;
+}
+
+.zoom:hover {
+    transform: scale(1.15);
+    color: #EDE540;
+    cursor: pointer;
+}
+
+.panelToggle {
+    background: transparent;
+    border-left: 5px solid #0F4B99;
+    display: inline-block;
+    position: fixed;
+    height: 100%;
+}
+    .panelToggle span {
+        width: 100%;
+        background: #0F4B99;
+        display: inline-block;
+        height: 50px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        vertical-align: top;
+        font-size: 20px;
+        color: #fff;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }   
+        .panelToggle span i {
+            line-height: 50px;
+            padding: 0 10px;
+            margin: 0;
+        }
+
+
+.userContent {
+    background: none;
+    width: 100%;
+    font-size: 15px;
+}
+
+.width50p {
+    width: 50%;
+    padding: 20px 0;
+}
+
+.width90p {
+    width: 78%;
+    padding: 5px 0;
+}
+
+.width45px {
+    width: 45px;
+}
+
+.width200px {
+    width: 200px;
+}
+
+.show {
+    display: inline-block;
+}
+
+.hide {
+    display: none;
+}

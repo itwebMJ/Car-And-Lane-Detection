@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <style>
+    html, body {
+      background-image: url('../static/images/login.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 100%;
+      font-family: 'Numans', sans-serif;
+      
+    }
+      
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+
+    .input-form {
+      max-width: 500px;
+
+      margin-top: 35px;
+      padding: 20px;
+
+      background: #fff;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+    }
+  </style>
+</head>
+
+<body>
+    
+  <div class="container">
+    <div class="input-form-backgroud row">
+      <div class="input-form col-md-12 mx-auto">
+        <h4 class="mb-3">회원가입</h4>
+        <form class="validation-form" action="/member/insert" method="post">
+          <div class="mb-3">
+            <label for="id">아이디</label>
+            <span id="sp1" style="color:red;"></span>
+            <input type="text" class="form-control" id="id" name="id" placeholder="아이디" onblur="check('id', 'sp1')" required > 
+          </div>
+
+
+          <div class="mb-3">
+            <label for="id">비밀번호</label>
+            <span id="sp2" style="color:red;"></span>
+            <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호" onblur="check('pwd', 'sp2')" required>       
+          </div>
+
+          <div class="mb-3">
+            <label for="id">비밀번호 확인</label>
+            <span id="sp3" style="color:red;"></span>
+            <input type="password" class="form-control" id="repwd" name="repwd" placeholder="비밀번호 확인" onblur="check('repwd', 'sp3')" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="name">이름</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="이름" required>
+          </div>
+
+
+          <div class="mb-3">
+            <label for="mobile">휴대폰</label>
+            <input type="number" class="form-control" id="mobile" name="mobile" placeholder="01012341234" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="email">이메일</label>
+            <span id="sp4" style="color:red;"></span>
+            <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" onblur="check('email', 'sp4')" required>
+          </div>
+
+          
+          <hr class="mb-4">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="aggrement" required>
+            <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+          </div>
+          <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
+        </form>
+      </div>
+    </div>
+  </div>
+    
+    
+  <script>
+    function check(str, id){
+        var span_tag = document.getElementById(id);
+        
+        if(document.getElementById(str).value != "") {
+            if(str == "id"){
+                if(3 > document.getElementById(str).value.length || 12 < document.getElementById(str).value.length ||
+                document.getElementById(str).value.indexOf(" ") != -1){
+                    span_tag.innerHTML = "3~12자의 영문, 숫자만 사용 가능합니다.";
+                    return;
+                }
+                for(i = 0; i < document.getElementById(str).value.length; ++i){
+                    var j = document.getElementById(str).value.charAt(i);
+                    if((j >= '0' && j <= '9') || (j >= 'A' && j <= 'Z') || (j >= 'a' && j <= 'z'))
+                        continue;
+                    span_tag.innerHTML = "3~12자의 영문, 숫자만 사용 가능합니다.";
+                    return;
+                }
+                var ids = {{mem|tojson}};
+                for(i = 0; i < ids.length; ++i){
+                    if(ids[i][0] == document.getElementById(str).value){
+                        span_tag.innerHTML = "이미 사용중인 아이디입니다.";
+                        return;
+                    }
+                }
+            }
+            if(str == "pwd" && document.getElementById("pwd").value.length < 4){
+                span_tag.innerHTML = "4자 이상의 영문, 숫자와 특수기호만 사용 가능합니다.";
+                return;
+            }
+            if(str == "repwd" && document.getElementById("pwd").value != document.getElementById("repwd").value){
+                span_tag.innerHTML = "비밀번호가 일치하지 않습니다.";
+                return;
+            }
+            if(str == "email"){
+                var ids = {{mem|tojson}};
+                for(i = 0; i < ids.length; ++i){
+                    if(ids[i][1] == document.getElementById(str).value){
+                        span_tag.innerHTML = "이미 사용중인 이메일입니다.";
+                        return;
+                    }
+                }
+            }
+            span_tag.innerHTML = "";
+            return;
+        }
+    }    
+      
+      
+    window.addEventListener('load', () => {
+      const forms = document.getElementsByClassName('validation-form');
+
+      Array.prototype.filter.call(forms, (form) => {
+        form.addEventListener('submit', function (event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          var check = ["sp1", "sp2", "sp3", "sp4"];
+          for(i = 0; i < 4; ++i){
+              var span_tag = document.getElementById(check[i]);
+              if(span_tag.innerHTML != ""){
+                  event.preventDefault();
+                  event.stopPropagation();
+                  return;
+              }         
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+          
+      
+  </script>    
+  
+</body>
+
+</html>

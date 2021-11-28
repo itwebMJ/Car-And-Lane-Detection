@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+ 
+{% block content %}
+  <div class="card col-md-8 offset-md-2" style="margin-top: 3em;position: absolute;top:100px;left:-100px"">
+    <div class="card-body">
+
+      <form class="validation-form" action="/board/insert" method="post">
+        <h5 class="card-title">글 등록 페이지</h5>
+
+        <label for="title">글제목</label>
+        <input type="text" class="form-control" id="title" name="title">
+
+        <label for="content">글 내용 작성</label>
+        <textarea id="form23" class="md-textarea form-control"  id="content" name="content" rows="3" onresize="none"></textarea>
+
+        <button class="btn btn-primary pull-right" type="submit">글 등록</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

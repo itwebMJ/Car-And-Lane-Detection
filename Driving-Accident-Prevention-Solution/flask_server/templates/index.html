@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login Page</title>
+   <!--Made with love by Mutiullah Samim -->
+   
+	<!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	<!--Custom styles-->
+	<link rel="stylesheet" href="../static/css/index.css">
+    
+    
+</head>
+<body>
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<h3>로그인</h3>
+			</div>
+			<div class="card-body">
+				
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="text" class="form-control" name="id" id="id" placeholder="아이디">
+					</div>
+                    <span id="sp1" style="position:relative;top:-10px; color:red;"></span>
+                    
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" class="form-control" name="pwd" id="pwd" placeholder="비밀번호">
+					</div>
+                    <span id="sp2" style="position:relative;top:-10px; color:red;"></span>
+					<div class="form-group">
+						<input type="button" value="로그인" onclick="login()" class="btn float-right login_btn">
+					</div>
+
+			</div>
+			<div class="card-footer">
+				<div class="d-flex justify-content-center">
+					<a href="/member/sign_up">회원가입</a> ㅣ
+					<a href="/member/search_id">아이디 찾기</a> ㅣ
+					<a href="/member/search_pwd">비밀번호 찾기</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+    
+<script>
+    function login(){
+        var check1 = ["id", "pwd"];
+        var check2 = {{mem|tojson}};
+        if(document.getElementById(check1[0]).value == ""){
+            var span_tag = document.getElementById("sp1");
+            span_tag.innerHTML = "아이디를 입력해주세요.";
+            span_tag = document.getElementById("sp2");
+            span_tag.innerHTML = "";
+            return;
+        }
+        else if(document.getElementById(check1[1]).value == ""){
+            var span_tag = document.getElementById("sp1");
+            span_tag.innerHTML = "";
+            span_tag = document.getElementById("sp2");
+            span_tag.innerHTML = "비밀번호를 입력해주세요.";
+            return;
+        }
+        var check3 = 0;
+        for(i = 0; i < check2.length; ++i){
+            if(check2[i][0] == document.getElementById(check1[0]).value &&
+            check2[i][1] == document.getElementById(check1[1]).value){
+                check3 = 1;
+                break;
+            }
+        }
+        if(check3 == 0){
+            var span_tag = document.getElementById("sp2");
+            span_tag.innerHTML = "아이디 또는 비밀번호가 잘못 입력 되었습니다.";
+            return;
+        }
+        var form = document.createElement('form');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', '/member/login');
+    
+        var hiddenfield = document.createElement('input');
+        hiddenfield.setAttribute('name', check1[0]);
+        hiddenfield.setAttribute('value', document.getElementById(check1[0]).value);
+        form.appendChild(hiddenfield);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>    
+    
+    
+</body>
+</html>

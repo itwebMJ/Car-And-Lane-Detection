@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내 정보</title>
+  
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+  <link rel="stylesheet" href="../../static/css/menubar.css">
+  
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+  <style>
+    html, body {
+      background-image: url('../static/images/play.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 100%;
+      font-family: 'Numans', sans-serif;
+      
+    }
+      
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+
+    .input-form {
+      max-width: 500px;
+      position: absolute;
+      top: 100px;
+      left: 550px;
+      margin-top: ;
+      padding: 20px;
+
+      background: #fff;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+    }
+  </style>
+</head>
+
+<body>
+    
+  <div class="container">
+    <div class="oneFifth">
+    <div class="userPanel width200px">
+      <div class="userName">
+        <a href="/member/login"><img src="../static/images/indexLogo.png" width="100" height="100"></a>
+        <span class="userNameSpan show"><br><br>{{session.id}}님<br></span>
+        <i class="fa fa-power-off logout"></i>
+      </div>
+      <div class="userMenu">
+        <ul>
+          <li><a href="" class="zoom"><i class="fa fa-bar-chart Icon"></i><span class="show"><br>&nbsp;&nbsp;&nbsp;주행 리포트</span></a></li>
+          <li><a href="" class="zoom"><i class="fa fa-cloud-download Icon"></i><span class="show">&nbsp;&nbsp;&nbsp;주행영상보기</span></a></li>
+          <li><a href="" class="zoom"><i class="fa fa-cog Icon"></i><span class="show">&nbsp;&nbsp;&nbsp;세팅</span></a></li>
+          <li><a href="/board" class="zoom"><i class="fa fa-comments Icon"></i><span class="show">&nbsp;&nbsp;&nbsp;문의 하기</span></a></li>
+          <li><a href="/member/my_info" class="zoom"><i class="fa fa-users Icon"></i><span class="show">&nbsp;&nbsp;&nbsp;내정보</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="fourFifth">
+    <div class="userContent">
+      <div class="container">
+        <div class="input-form-backgroud row">
+          <div class="input-form col-md-12 mx-auto">
+            <h4 class="mb-3">내 정보 관리</h4>
+            <form class="validation-form" action="/member/update_my_info" method="post">
+              <div class="mb-3">
+                <label for="id">아이디</label>
+                <input type="text" class="form-control" id="id" name="id" value="{{mem[0]}}" readonly> 
+              </div>
+
+
+              <div class="mb-3">
+                <label for="id">비밀번호</label>
+                <button class="btn btn-primary btn-lg btn-block" type="button" onclick="back()">변경 하기</button>       
+              </div>
+
+
+              <div class="mb-3">
+                <label for="name">이름</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{mem[1]}}" placeholder="이름" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="mobile">휴대폰</label>
+                <input type="number" class="form-control" id="mobile" name="mobile" value="{{mem[2]}}" placeholder="01012341234" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="email">이메일</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{mem[3]}}" readonly>
+              </div>
+
+              <button class="btn btn-primary btn-lg btn-block" type="submit">수정 하기</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+   <div style="position: absolute;top:700px;left:50px;">
+       <img src="../static/images/playdata_icon.ico" width="25" height="25">
+    </div>
+    <div style="position: absolute;top:699px;left:78px;font-size:1.2em; color:white;">견인차</div> 
+    
+  <script>  
+    function back(){
+        var mem = {{mem|tojson}};
+        location.href = "/member/change_pwd?id=" + mem[0];
+    }  
+      
+    window.addEventListener('load', () => {
+      const forms = document.getElementsByClassName('validation-form');
+
+      Array.prototype.filter.call(forms, (form) => {
+        form.addEventListener('submit', function (event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+          
+      
+  </script>    
+  
+</body>
+
+</html>

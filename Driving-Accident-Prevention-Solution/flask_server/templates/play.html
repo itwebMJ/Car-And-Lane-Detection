@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>주행하기</title>
+    <link rel="stylesheet" href="../static/css/menu.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+</head>
+<body>
+  <div class="container">
+  <div class="oneFifth">
+    <div class="userPanel width200px">
+      <div class="userName">
+          <a href="/member/login"><img src="../static/images/indexLogo.png" width="100" height="100"></a>
+        <span class="userNameSpan show"><br><br>{{session.id}}님<br></span>
+        <i class="fa fa-power-off logout" onclick=stream()></i>
+      </div>
+      <div class="userMenu">
+        <ul>
+          <li><a href="" class="zoom"><i class="fa fa-bar-chart Icon"></i><span class="show"><br>주행 리포트</span></a></li>
+          <li><a href="" class="zoom"><i class="fa fa-cloud-download Icon"></i><span class="show">주행영상보기</span></a></li>
+          <li><a href="" class="zoom"><i class="fa fa-cog Icon"></i><span class="show">세팅</span></a></li>
+          <li><a href="/board" class="zoom"><i class="fa fa-comments Icon"></i><span class="show">문의 하기</span></a></li>
+          <li><a href="/member/my_info" class="zoom"><i class="fa fa-users Icon"></i><span class="show">내정보</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="fourFifth">
+    <div class="userContent">
+        <!--   style="display:none" -->
+      <video id="videoInput" style="display:none" ></video>
+      <canvas id="videoOutput" style="display:none"></canvas>
+      <canvas id="videoChange"></canvas>
+      <!--<button onclick=stream()>Send</button>-->
+    </div>
+  </div>
+</div>
+    <div style="position: absolute;top:700px;left:50px;">
+       <img src="../static/images/playdata_icon.ico" width="25" height="25">
+    </div>
+    <div style="position: absolute;top:699px;left:78px;font-size:1.2em; color:white;">견인차</div>
+</body>
+
+<script>
+  var w = 1024, h = 640;  // 640, 480
+  var url = "ws://3.37.132.145:5757"
+  var ws = new WebSocket(url);  
+  ws.onopen = function(){
+    console.log("Websocket is connected.");
+  }
+  
+    
+  ws.onmessage = function(msg){
+    console.log(msg.data);
+    //alert(msg.data);
+    var image = new Image();
+    image.onload = function() {
+      ctx2.drawImage(image, 0, 0, w, h);
+    };  
+    image.src = msg.data;
+  }
+  
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+  var constraints = {audio: false, video: true};
+  var video = document.getElementById("videoInput");
+  video.width = w;
+  video.height = h;
+    
+  function successCallback(stream){
+    video.srcObject = stream;
+    video.play();
+  }
+  
+  function errorCallback(error){
+    console.log(error);
+  }
+    
+  navigator.getUserMedia(constraints, successCallback, errorCallback);
+  var canvas = document.getElementById("videoOutput");
+  canvas.width = w;
+  canvas.height = h;
+  var ctx = canvas.getContext("2d");
+  
+  var changecanvas = document.getElementById("videoChange");
+  changecanvas.width = w;
+  changecanvas.height = h;
+  var ctx2 = changecanvas.getContext("2d");
+  
+     
+  function processImage(){
+    ctx.drawImage(video, 0, 0, w, h);
+    setTimeout(processImage, 1);
+  }
+  
+  function stream(){
+    processImage();
+    setInterval(sendImage, 300);
+  }
+    
+
+  function sendImage(){
+    var rawData = canvas.toDataURL("image/jpeg", 0.5);
+    ws.send(rawData);
+  }
+</script>
+</html>
