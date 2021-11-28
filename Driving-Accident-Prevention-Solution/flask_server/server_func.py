@@ -2,7 +2,7 @@ from simple_websocket_server import WebSocketServer, WebSocket
 import socket, struct, threading, pickle, numpy, cv2, base64
 
 def init_my_webServer() :
-    my_webSocket = WebSocketServer('172.31.38.121', 5757, CMyWebSocket)
+    my_webSocket = WebSocketServer('Host Address', 5757, CMyWebSocket)
     my_webServer_th = threading.Thread(target = my_webServer_forever, args = (my_webSocket, ))
     my_webServer_th.start()
 
@@ -32,7 +32,7 @@ class CMyWebSocket(WebSocket):
     def connected(self):  
         if not CMyWebSocket.flag2 :
             CMyWebSocket.flag2 = True
-            CMyWebSocket.my_ai_socket.connect(('3.35.64.10', 5656))
+            CMyWebSocket.my_ai_socket.connect(('Web Address', 5656))
         print("webServer :", self.address, 'connected')
         
 

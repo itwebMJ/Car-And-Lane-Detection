@@ -32,6 +32,6 @@ def home() :
 
 
 if __name__ == '__main__':                              
-    app.run(host = "172.31.38.121", port = 5050, debug = True)
+    app.run(host = "Host Address", port = 5050, debug = True)
     
     

@@ -16,7 +16,7 @@ class cBoard_dao :
         self.cur = None
 
     def Connect(self) :
-        self.conn = pymysql.connect(host = "3.37.132.145", user = "team4", password = "team4",
+        self.conn = pymysql.connect(host = "Host Address", user = "team4", password = "team4",
                                     db = "project", charset = "utf8")
         self.cur = self.conn.cursor()
 
